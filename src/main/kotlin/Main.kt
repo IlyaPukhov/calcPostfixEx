@@ -9,7 +9,6 @@ fun main() {
 fun calc(s: String): Double {
     // Преобразуем исходную строку в подходящий нам массив операндов и операций
     val exp = s.replace(" sin", "sin").replace("sin", " sin").split(" ").map{f -> f.trim()}
-    println(exp)
     val st = mutableListOf<Double>() // Создаём стек для чисел
     for (i in exp.indices) {
         try {
