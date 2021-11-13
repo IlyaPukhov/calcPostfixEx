@@ -8,42 +8,34 @@ fun main() {
 
 fun calc(s: String): Double {
     // Преобразуем исходную строку в подходящий нам массив операндов и операций
-    val exp = s.replace(" sin", "sin").replace("sin", " sin").split(" ").map{f -> f.trim()}
+    val exp = s.split(" ").map{f -> f.trim()}
     val st = mutableListOf<Double>() // Создаём стек для чисел
     for (i in exp.indices) {
         try {
             when (exp[i]) { // Проходимся по всем элементам массива
                 "+" -> {  // Если встречается "+", то вынимаем 2 последних числа из стека и добавляем в конец их сумму
-                    val r = st.last()
-                    st.removeLast()
-                    val l = st.last()
-                    st.removeLast()
+                    val r = st.removeLast()
+                    val l = st.removeLast()
                     st.add(l + r)
                 }
                 "-" -> { // Если встречается "-", то вынимаем 2 последних числа из стека и добавляем в него их разность
-                    val r = st.last()
-                    st.removeLast()
-                    val l = st.last()
-                    st.removeLast()
+                    val r = st.removeLast()
+                    val l = st.removeLast()
                     st.add(l - r)
                 }
                 "*" -> {  // Если встречается "*", то вынимаем 2 последних числа из стека и добавляем в него их произведение
-                    val r = st.last()
-                    st.removeLast()
-                    val l = st.last()
+                    val r = st.removeLast()
+                    val l = st.removeLast()
                     st.removeLast()
                     st.add(l * r)
                 }
                 "/" -> {  // Если встречается "/", то вынимаем 2 последних числа из стека и добавляем в конец их частное
-                    val r = st.last()
-                    st.removeLast()
-                    val l = st.last()
-                    st.removeLast()
+                    val r = st.removeLast()
+                    val l = st.removeLast()
                     st.add(l / r)
                 }
                 "sin" -> { // Если встречается "sin", то вынимаем последнее число из стека и добавляем в конец sin от него
-                    val x = st.last()
-                    st.removeLast()
+                    val x = st.removeLast()
                     st.add(sin(x))
                 }
                 else -> st.add(exp[i].toDouble()) // В остальных случаях добавляем число в стек
