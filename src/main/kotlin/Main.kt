@@ -36,9 +36,9 @@ fun calc(s: String): Double {
                     st.add(l / r)
                 }
 		"^" -> { // Если встречается "^", то вынимаем 2 последних числа из стека и добавляем в конец предпоследнее число в степени последнего
-			r = st.removeLast()
-			l = st.removeLast()
-			stack.add(l.pow(r))
+		    r = st.removeLast()
+		    l = st.removeLast()
+		    stack.add(l.pow(r))
 		}
                 "sin" -> { // Если встречается "sin", то вынимаем последнее число из стека и добавляем в конец sin от него
                     r = st.removeLast()
