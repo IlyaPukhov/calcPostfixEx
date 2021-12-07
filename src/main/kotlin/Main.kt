@@ -10,35 +10,41 @@ fun calc(s: String): Double {
     // Преобразуем исходную строку в подходящий нам массив операндов и операций
     val exp = s.split(" ").map{f -> f.trim()}
     val st = mutableListOf<Double>() // Создаём стек для чисел
+	val r: Float
+	val l:Float
     for (i in exp.indices) {
         try {
             when (exp[i]) { // Проходимся по всем элементам массива
                 "+" -> {  // Если встречается "+", то вынимаем 2 последних числа из стека и добавляем в конец их сумму
-                    val r = st.removeLast()
-                    val l = st.removeLast()
+                    r = st.removeLast()
+                    l = st.removeLast()
                     st.add(l + r)
                 }
                 "-" -> { // Если встречается "-", то вынимаем 2 последних числа из стека и добавляем в него их разность
-                    val r = st.removeLast()
-                    val l = st.removeLast()
+                    r = st.removeLast()
+                    l = st.removeLast()
                     st.add(l - r)
                 }
                 "*" -> {  // Если встречается "*", то вынимаем 2 последних числа из стека и добавляем в него их произведение
-                    val r = st.removeLast()
-                    val l = st.removeLast()
-                    st.removeLast()
+                    r = st.removeLast()
+                    l = st.removeLast()
                     st.add(l * r)
                 }
                 "/" -> {  // Если встречается "/", то вынимаем 2 последних числа из стека и добавляем в конец их частное
-                    val r = st.removeLast()
-                    val l = st.removeLast()
+                    r = st.removeLast()
+                    l = st.removeLast()
                     st.add(l / r)
                 }
+				"^" -> { // Если встречается "^", то вынимаем 2 последних числа из стека и добавляем в конец предпоследнее число в степени последнего
+					r = st.removeLast()
+					l = st.removeLast()
+					stack.add(l.pow(r))
+				}
                 "sin" -> { // Если встречается "sin", то вынимаем последнее число из стека и добавляем в конец sin от него
-                    val x = st.removeLast()
-                    st.add(sin(x))
+                    r = st.removeLast()
+                    st.add(sin(r))
                 }
-                else -> st.add(exp[i].toDouble()) // В остальных случаях добавляем число в стек
+                else -> st.add(exp[i].toFloat()) // В остальных случаях добавляем число в стек
             }
         } catch (e: NoSuchElementException) { // Если количество чисел в стеке недостаточно для операции, выдаём ошибку
             throw Error("Неверное выражение!")
