@@ -10,8 +10,8 @@ fun calc(s: String): Double {
     // Преобразуем исходную строку в подходящий нам массив операндов и операций
     val exp = s.split(" ").map{f -> f.trim()}
     val st = mutableListOf<Double>() // Создаём стек для чисел
-	val r: Float
-	val l:Float
+    val r: Float
+    val l:Float
     for (i in exp.indices) {
         try {
             when (exp[i]) { // Проходимся по всем элементам массива
