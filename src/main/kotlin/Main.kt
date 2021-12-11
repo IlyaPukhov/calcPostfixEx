@@ -1,17 +1,18 @@
 import kotlin.math.sin
+import kotlin.math.pow
 
 fun main() {
     print("Введите постфиксное выражение для вычисления: ")
     val s: String = readLine().toString()
-    println("Результат: ${calc(s)}")
+    println("Результат: ${calcPostfixEx(s)}")
 }
 
-fun calc(s: String): Double {
+fun calcPostfixEx(s: String): Float {
     // Преобразуем исходную строку в подходящий нам массив операндов и операций
-    val exp = s.split(" ").map{f -> f.trim()}
-    val st = mutableListOf<Double>() // Создаём стек для чисел
-    val r: Float
-    val l:Float
+    val exp = s.split(" ").map { f -> f.trim() }
+    val st = mutableListOf<Float>() // Создаём стек для чисел
+    var r: Float
+    var l: Float
     for (i in exp.indices) {
         try {
             when (exp[i]) { // Проходимся по всем элементам массива
@@ -35,11 +36,11 @@ fun calc(s: String): Double {
                     l = st.removeLast()
                     st.add(l / r)
                 }
-		"^" -> { // Если встречается "^", то вынимаем 2 последних числа из стека и добавляем в конец предпоследнее число в степени последнего
-		    r = st.removeLast()
-		    l = st.removeLast()
-		    stack.add(l.pow(r))
-		}
+                "^" -> { // Если встречается "^", то вынимаем 2 последних числа из стека и добавляем в конец предпоследнее число в степени последнего
+                    r = st.removeLast()
+                    l = st.removeLast()
+                    st.add(l.pow(r))
+                }
                 "sin" -> { // Если встречается "sin", то вынимаем последнее число из стека и добавляем в конец sin от него
                     r = st.removeLast()
                     st.add(sin(r))
